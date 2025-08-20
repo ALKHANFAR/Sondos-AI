@@ -1,0 +1,44 @@
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /private/
+
+# Allow important pages
+Allow: /
+Allow: /solution
+Allow: /industries
+Allow: /pricing
+Allow: /white-label
+Allow: /resources
+Allow: /login
+Allow: /signup
+
+# Sitemap location
+Sitemap: https://taskmaster.ai/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Social media bots
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
