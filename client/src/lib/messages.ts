@@ -195,11 +195,50 @@ export const messages = {
           },
         ],
       },
+      stats: {
+        title: 'Trusted by thousands',
+        subtitle: 'Join businesses worldwide using AI voice agents',
+        items: [
+          {
+            number: '2,500+',
+            label: 'Active Users',
+            description: 'Businesses worldwide trust our AI',
+          },
+          {
+            number: '500K+',
+            label: 'Calls Handled',
+            description: 'Successfully processed this month',
+          },
+          {
+            number: '150%',
+            label: 'Average ROI',
+            description: 'Return on investment for customers',
+          },
+          {
+            number: '4.7/5',
+            label: 'Customer Rating',
+            description: 'Based on 850+ reviews',
+          },
+        ],
+      },
       whiteLabel: {
         title: 'Start your own platform with White label plan',
         subtitle:
           'Build and scale your own AI voice agent business with our comprehensive white-label solution',
+        description: 'Partner with us to launch your own AI voice agent platform with full customization and revenue sharing opportunities.',
+        features: [
+          'Complete white-label solution',
+          'Custom branding and domain',
+          'Revenue sharing model',
+          'Technical support included',
+          'Marketing materials provided',
+          'Training and onboarding',
+          'Dedicated account manager',
+          'API access and integrations'
+        ],
         cta: 'More about white label',
+        readyTitle: 'Ready to Get Started?',
+        readyDescription: 'Launch your own AI voice agent platform in days, not months.',
       },
       integrations: {
         title: '+300 tools ready to integrate',
@@ -782,11 +821,50 @@ export const messages = {
           },
         ],
       },
+      stats: {
+        title: 'موثوق به من آلاف الشركات',
+        subtitle: 'انضم للشركات العالمية التي تستخدم وكلاء الصوت بالذكاء الاصطناعي',
+        items: [
+          {
+            number: '2,500+',
+            label: 'مستخدم نشط',
+            description: 'شركات حول العالم تثق بذكائنا الاصطناعي',
+          },
+          {
+            number: '500K+',
+            label: 'مكالمة معالجة',
+            description: 'تمت معالجتها بنجاح هذا الشهر',
+          },
+          {
+            number: '150%',
+            label: 'متوسط العائد على الاستثمار',
+            description: 'عائد الاستثمار للعملاء',
+          },
+          {
+            number: '4.7/5',
+            label: 'تقييم العملاء',
+            description: 'بناءً على أكثر من 850 مراجعة',
+          },
+        ],
+      },
       whiteLabel: {
         title: 'ابدأ منصتك الخاصة بخطة العلامة البيضاء',
         subtitle:
           'ابن ووسع عمل وكلاء الصوت بالذكاء الاصطناعي الخاص بك بحلنا الشامل للعلامة البيضاء',
+        description: 'شاركنا لإطلاق منصة وكلاء الصوت بالذكاء الاصطناعي الخاصة بك مع إمكانيات تخصيص كاملة وفرص مشاركة الإيرادات.',
+        features: [
+          'حل شامل للعلامة البيضاء',
+          'علامة تجارية ودومين مخصص',
+          'نموذج مشاركة الإيرادات',
+          'دعم تقني مشمول',
+          'مواد تسويقية متوفرة',
+          'تدريب وإعداد',
+          'مدير حساب مخصص',
+          'وصول API وتكاملات'
+        ],
         cta: 'المزيد عن العلامة البيضاء',
+        readyTitle: 'جاهز للانطلاق؟',
+        readyDescription: 'اطلق منصة وكلاء الصوت بالذكاء الاصطناعي الخاصة بك في أيام، وليس شهور.',
       },
       integrations: {
         title: '+300 أداة جاهزة للتكامل',
@@ -1030,7 +1108,7 @@ export const messages = {
       viewDemo: 'مشاهدة العرض التوضيحي',
       trustIndicators: {
         noCreditCard: 'لا حاجة لبطاقة ائتمان',
-        freeTrial: 'تجربة مجانية 14 يوم',
+        freeTrial: '',
         cancelAnytime: 'إلغاء في أي وقت',
       },
 
@@ -1058,7 +1136,7 @@ export const messages = {
       savePercent: 'وفر 20%',
       getStarted: 'ابدأ الآن',
       contactSales: 'تواصل مع المبيعات',
-      trialInfo: 'تجربة مجانية 14 يوم • بدون رسوم إعداد',
+      trialInfo: 'بدون رسوم إعداد',
       trustFeatures: {
         noSetupFees: 'بدون رسوم إعداد',
         cancelAnytime: 'إلغاء في أي وقت',
@@ -1230,7 +1308,7 @@ export const messages = {
       getStarted: 'ابدأ الآن',
       startFreeTrial: 'ابدأ تجربة مجانية',
       viewDemo: 'شاهد العرض',
-      trialInfo: 'تجربة مجانية 14 يوم - لا حاجة لبطاقة ائتمان',
+      trialInfo: 'لا حاجة لبطاقة ائتمان',
       stats: {
         uptime: '99.5% وقت تشغيل',
         responseTime: 'استجابة فورية',
@@ -1239,7 +1317,7 @@ export const messages = {
       },
       trustIndicators: {
         noCreditCard: 'لا حاجة لبطاقة ائتمان',
-        freeTrial: 'تجربة مجانية 14 يوم',
+        freeTrial: '',
         cancelAnytime: 'إلغاء في أي وقت',
       },
       socialProof: {
@@ -1280,7 +1358,7 @@ export const messages = {
       finalSubtitle: 'الذكاء الاصطناعي الصوتي هو الاتجاه الجديد الذي ستتبعه كل الشركات. تقدم على المنافسين وابدأ بأتمتة مكالماتك اليوم.',
       finalTrust: {
         noCreditCard: 'لا حاجة لبطاقة ائتمان',
-        freeTrial: 'تجربة مجانية 14 يوم',
+        freeTrial: '',
         setupIn60: 'إعداد في 60 ثانية',
         cancelAnytime: 'إلغاء في أي وقت',
       },

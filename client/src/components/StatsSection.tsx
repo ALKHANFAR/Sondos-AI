@@ -11,27 +11,27 @@ export default function StatsSection() {
   const stats = [
     {
       icon: Users,
-      number: '2,500+',
-      label: 'Active Users',
-      description: 'Businesses worldwide trust our AI',
+      number: t.stats.items[0].number,
+      label: t.stats.items[0].label,
+      description: t.stats.items[0].description,
     },
     {
       icon: Clock,
-      number: '500K+',
-      label: 'Calls Handled',
-      description: 'Successfully processed this month',
+      number: t.stats.items[1].number,
+      label: t.stats.items[1].label,
+      description: t.stats.items[1].description,
     },
     {
       icon: TrendingUp,
-      number: '150%',
-      label: 'Average ROI',
-      description: 'Return on investment for customers',
+      number: t.stats.items[2].number,
+      label: t.stats.items[2].label,
+      description: t.stats.items[2].description,
     },
     {
       icon: Star,
-      number: '4.7/5',
-      label: 'Customer Rating',
-      description: 'Based on 850+ reviews',
+      number: t.stats.items[3].number,
+      label: t.stats.items[3].label,
+      description: t.stats.items[3].description,
     },
   ]
 

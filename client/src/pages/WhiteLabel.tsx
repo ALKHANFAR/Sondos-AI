@@ -32,9 +32,9 @@ export default function WhiteLabel() {
             </div>
 
             <div className='rounded-2xl bg-white p-8 text-center shadow-custom'>
-              <h3 className='mb-4 text-2xl font-bold'>Ready to Get Started?</h3>
+              <h3 className='mb-4 text-2xl font-bold'>{t.whiteLabel.readyTitle}</h3>
               <p className='mb-6 text-gray-600'>
-                Launch your own AI voice agent platform in days, not months.
+                {t.whiteLabel.readyDescription}
               </p>
               <Button size='lg'>{t.whiteLabel.cta}</Button>
             </div>
