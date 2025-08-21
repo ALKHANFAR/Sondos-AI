@@ -6,7 +6,7 @@ import { TrendingUp, Users, Clock, Star } from 'lucide-react'
 
 export default function StatsSection() {
   const { locale } = useLanguage()
-  const t = messages[locale as keyof typeof messages] || messages.en
+  const t = messages[locale as keyof typeof messages] || messages.ar
 
   // Fallback if stats.items is undefined
   const statsItems = t.stats?.items || []
@@ -15,26 +15,26 @@ export default function StatsSection() {
     {
       icon: Users,
       number: statsItems[0]?.number || '10,000+',
-      label: statsItems[0]?.label || 'Active Users',
-      description: statsItems[0]?.description || 'Global businesses scaling with AI',
+      label: statsItems[0]?.label || 'مستخدم نشط',
+      description: statsItems[0]?.description || 'شركات تنمو مع سندس',
     },
     {
       icon: TrendingUp,
       number: statsItems[1]?.number || '2.5M+',
-      label: statsItems[1]?.label || 'Calls Handled',
-      description: statsItems[1]?.description || 'Monthly successful conversations',
+      label: statsItems[1]?.label || 'مكالمة شهرياً',
+      description: statsItems[1]?.description || 'محادثات ناجحة',
     },
     {
       icon: Clock,
       number: statsItems[2]?.number || '250%',
-      label: statsItems[2]?.label || 'Average ROI',
-      description: statsItems[2]?.description || 'Proven revenue increase',
+      label: statsItems[2]?.label || 'عائد الاستثمار',
+      description: statsItems[2]?.description || 'نمو مضمون في الأرباح',
     },
     {
       icon: Star,
       number: statsItems[3]?.number || '4.9/5',
-      label: statsItems[3]?.label || 'Customer Rating',
-      description: statsItems[3]?.description || 'From 2,850+ satisfied businesses',
+      label: statsItems[3]?.label || 'تقييم العملاء',
+      description: statsItems[3]?.description || 'من 2,850+ عميل راضي',
     },
   ]
 
@@ -49,9 +49,9 @@ export default function StatsSection() {
 
       <Container>
         <div className='mb-16 text-center'>
-          <h2 className='mb-6 text-4xl font-bold md:text-5xl'>{t.stats?.title || 'Transforming Businesses Worldwide'}</h2>
+          <h2 className='mb-6 text-4xl font-bold md:text-5xl'>{t.stats?.title || 'نغيّر مستقبل الأعمال'}</h2>
           <p className='mx-auto max-w-3xl text-xl opacity-90'>
-            {t.stats?.subtitle || 'Join thousands of companies already experiencing the power of AI voice agents'}
+            {t.stats?.subtitle || 'انضم لآلاف الشركات التي تنمو مع الذكاء الاصطناعي'}
           </p>
         </div>
 
