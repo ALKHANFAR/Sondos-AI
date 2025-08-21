@@ -3,6 +3,7 @@ import { useLocation } from 'wouter'
 import Container from '@/components/Container'
 import Section from '@/components/Section'
 import SEOHead from '@/components/SEOHead'
+import LazyImage from '@/components/LazyImage'
 import { useLanguage } from '@/hooks/useLanguage'
 import { Search, Calendar, User, Tag, ArrowRight, BookOpen } from 'lucide-react'
 import { blogPosts, categories, BlogPost } from '@/lib/blog-data'
@@ -112,10 +113,12 @@ export default function Blog() {
             <article className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow" onClick={() => handlePostClick(featuredPost)}>
               <div className="md:flex">
                 <div className="md:w-1/2">
-                  <img
+                  <LazyImage
                     src={featuredPost.image}
-                    alt={featuredPost.title[locale as keyof typeof featuredPost.title]}
+                    alt={featuredPost.imageAlt?.[locale as keyof typeof featuredPost.imageAlt] || featuredPost.title[locale as keyof typeof featuredPost.title]}
                     className="w-full h-64 md:h-full object-cover"
+                    placeholder="/assets/blog/placeholder.jpg"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="md:w-1/2 p-8">

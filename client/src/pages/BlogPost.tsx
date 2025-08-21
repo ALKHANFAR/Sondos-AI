@@ -1,8 +1,10 @@
 import { useLocation, useRoute } from 'wouter'
 import { useLanguage } from '@/hooks/useLanguage'
 import SEOHead from '@/components/SEOHead'
+import BlogSchema from '@/components/BlogSchema'
 import Container from '@/components/Container'
 import Section from '@/components/Section'
+import LazyImage from '@/components/LazyImage'
 import { ArrowLeft, Calendar, User, Tag, BookOpen, Share2, Facebook, Twitter, Linkedin, Heart, MessageCircle, Eye, Clock } from 'lucide-react'
 import { blogPosts } from '@/lib/blog-data'
 import { useState, useEffect } from 'react'
@@ -122,12 +124,13 @@ export default function BlogPost() {
     <>
       <SEOHead
         title={post.title[locale as keyof typeof post.title]}
-        description={post.excerpt[locale as keyof typeof post.excerpt]}
+        description={post.metaDescription[locale as keyof typeof post.metaDescription]}
         keywords={post.tags.join(', ')}
         image={post.image}
         url={`https://sondos.ai/blog/${post.id}`}
         type="article"
       />
+      <BlogSchema post={post} locale={locale as 'en' | 'ar'} />
       
       {/* Hero Section */}
       <Section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-32 pb-16">
@@ -219,14 +222,12 @@ export default function BlogPost() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="relative">
-              <img
+              <LazyImage
                 src={post.image}
-                alt={post.title[locale as keyof typeof post.title]}
+                alt={post.imageAlt[locale as keyof typeof post.imageAlt]}
                 className="w-full h-96 md:h-[500px] object-cover rounded-2xl shadow-lg"
-                onError={(e) => {
-                  // Fallback image if the main image fails to load
-                  (e.target as HTMLImageElement).src = '/assets/blog/placeholder.jpg'
-                }}
+                placeholder="/assets/blog/placeholder.jpg"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
               />
               <div className="absolute top-4 right-4 bg-white bg-opacity-90 px-3 py-1 rounded-full text-sm font-medium text-gray-700">
                 {post.category}

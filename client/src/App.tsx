@@ -7,13 +7,13 @@ import Layout from '@/components/Layout'
 import SEOHead from '@/components/SEOHead'
 import Analytics from '@/components/Analytics'
 import PerformanceOptimizer from '@/components/PerformanceOptimizer'
+import PerformanceMonitor from '@/components/PerformanceMonitor'
 
 import Home from '@/pages/Home'
 import Industries from '@/pages/Industries'
 import Pricing from '@/pages/Pricing'
 import Integrations from '@/pages/Integrations'
 import Resources from '@/pages/Resources'
-// import Blog from '@/pages/Blog' // Hidden as requested
 import CaseStudies from '@/pages/CaseStudies'
 import About from '@/pages/About'
 import Blog from '@/pages/Blog'
@@ -66,6 +66,7 @@ function App() {
           <SEOHead />
           <Analytics />
           <PerformanceOptimizer />
+          {import.meta.env.DEV && <PerformanceMonitor />}
           <Layout>
             <Router />
           </Layout>

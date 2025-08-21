@@ -1,202 +1,421 @@
-// Sondos AI Service Worker
-const CACHE_NAME = 'sondos-ai-v1.0.0'
-const STATIC_CACHE = 'sondos-ai-static-v1.0.0'
-const DYNAMIC_CACHE = 'sondos-ai-dynamic-v1.0.0'
+// Sondos AI - Advanced Service Worker
+// Version: 2.0.0
+// Enhanced for international SEO and performance optimization
 
-// Assets to cache immediately
+const CACHE_NAME = 'sondos-ai-v2.0.0';
+const STATIC_CACHE = 'sondos-static-v2.0.0';
+const DYNAMIC_CACHE = 'sondos-dynamic-v2.0.0';
+const API_CACHE = 'sondos-api-v2.0.0';
+
+// Define what to cache
 const STATIC_ASSETS = [
   '/',
   '/index.html',
+  '/manifest.json',
   '/assets/sondos-lockup-light.png',
   '/assets/sondos-lockup-dark.png',
-  '/favicon.ico',
-  '/site.webmanifest'
-]
+  '/assets/sondos-mark-light.png',
+  '/assets/sondos-mark-dark.png',
+  // Critical CSS and JS will be added dynamically
+];
 
-// Install event - cache static assets
+const CACHE_STRATEGIES = {
+  // Cache first strategy for static assets
+  static: ['image/', 'font/', 'application/font', 'text/css', 'application/javascript'],
+  // Network first strategy for dynamic content
+  networkFirst: ['text/html', 'application/json'],
+  // Stale while revalidate for API calls
+  staleWhileRevalidate: ['/api/']
+};
+
+// Install event - cache critical resources
 self.addEventListener('install', (event) => {
+  console.log('Service Worker: Installing...');
+  
   event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then((cache) => {
-        console.log('Caching static assets')
-        return cache.addAll(STATIC_ASSETS)
-      })
-      .then(() => self.skipWaiting())
-  )
-})
+    Promise.all([
+      // Cache static assets
+      caches.open(STATIC_CACHE).then((cache) => {
+        return cache.addAll(STATIC_ASSETS);
+      }),
+      // Skip waiting to activate immediately
+      self.skipWaiting()
+    ])
+  );
+});
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Activating...');
+  
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-            console.log('Deleting old cache:', cacheName)
-            return caches.delete(cacheName)
-          }
-        })
-      )
-    }).then(() => self.clients.claim())
-  )
-})
+    Promise.all([
+      // Clean up old caches
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME && 
+                cacheName !== STATIC_CACHE && 
+                cacheName !== DYNAMIC_CACHE && 
+                cacheName !== API_CACHE) {
+              console.log('Service Worker: Deleting old cache:', cacheName);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      }),
+      // Take control of all clients
+      self.clients.claim()
+    ])
+  );
+});
 
-// Fetch event - serve from cache or network
+// Fetch event - implement caching strategies
 self.addEventListener('fetch', (event) => {
-  const { request } = event
-  const url = new URL(request.url)
-
+  const { request } = event;
+  const url = new URL(request.url);
+  
   // Skip non-GET requests
-  if (request.method !== 'GET') return
-
-  // Skip external requests
-  if (!url.origin.includes('localhost') && !url.origin.includes('sondos.ai')) return
+  if (request.method !== 'GET') {
+    return;
+  }
+  
+  // Skip chrome-extension and other non-http(s) requests
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
 
   // Handle different types of requests
-  if (request.destination === 'image') {
-    event.respondWith(handleImageRequest(request))
-  } else if (request.destination === 'style' || request.destination === 'script') {
-    event.respondWith(handleStaticRequest(request))
-  } else if (request.destination === 'document') {
-    event.respondWith(handleDocumentRequest(request))
+  if (isStaticAsset(request)) {
+    event.respondWith(cacheFirstStrategy(request));
+  } else if (isAPIRequest(url)) {
+    event.respondWith(staleWhileRevalidateStrategy(request));
+  } else if (isHTMLRequest(request)) {
+    event.respondWith(networkFirstStrategy(request));
   } else {
-    event.respondWith(handleApiRequest(request))
+    event.respondWith(genericFetchStrategy(request));
   }
-})
+});
 
-// Handle image requests with cache-first strategy
-async function handleImageRequest(request) {
-  const cache = await caches.open(DYNAMIC_CACHE)
-  const cachedResponse = await cache.match(request)
-  
-  if (cachedResponse) {
-    return cachedResponse
-  }
-
+// Cache first strategy - for static assets
+async function cacheFirstStrategy(request) {
   try {
-    const networkResponse = await fetch(request)
-    if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone())
+    const cache = await caches.open(STATIC_CACHE);
+    const cachedResponse = await cache.match(request);
+    
+    if (cachedResponse) {
+      // Update cache in background
+      fetchAndCache(request, cache);
+      return cachedResponse;
     }
-    return networkResponse
+    
+    // Not in cache, fetch and cache
+    const response = await fetch(request);
+    if (response.status === 200) {
+      cache.put(request, response.clone());
+    }
+    return response;
   } catch (error) {
-    // Return a placeholder image if network fails
-    return new Response(
-      '<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#f3f4f6"/><text x="50" y="50" text-anchor="middle" dy=".3em" fill="#6b7280" font-size="12">Image</text></svg>',
-      {
-        headers: { 'Content-Type': 'image/svg+xml' }
+    console.error('Cache first strategy failed:', error);
+    return createErrorResponse();
+  }
+}
+
+// Network first strategy - for HTML pages
+async function networkFirstStrategy(request) {
+  try {
+    const cache = await caches.open(DYNAMIC_CACHE);
+    
+    // Try network first
+    try {
+      const response = await fetch(request);
+      if (response.status === 200) {
+        cache.put(request, response.clone());
       }
-    )
+      return response;
+    } catch (networkError) {
+      // Network failed, try cache
+      const cachedResponse = await cache.match(request);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      
+      // If requesting HTML and nothing in cache, return offline page
+      if (request.headers.get('accept')?.includes('text/html')) {
+        return createOfflinePage();
+      }
+      
+      throw networkError;
+    }
+  } catch (error) {
+    console.error('Network first strategy failed:', error);
+    return createErrorResponse();
   }
 }
 
-// Handle static assets with cache-first strategy
-async function handleStaticRequest(request) {
-  const cache = await caches.open(STATIC_CACHE)
-  const cachedResponse = await cache.match(request)
-  
-  if (cachedResponse) {
-    return cachedResponse
-  }
-
+// Stale while revalidate strategy - for API calls
+async function staleWhileRevalidateStrategy(request) {
   try {
-    const networkResponse = await fetch(request)
-    if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone())
-    }
-    return networkResponse
-  } catch (error) {
-    return new Response('', { status: 404 })
-  }
-}
-
-// Handle document requests with network-first strategy
-async function handleDocumentRequest(request) {
-  try {
-    const networkResponse = await fetch(request)
-    if (networkResponse.ok) {
-      const cache = await caches.open(DYNAMIC_CACHE)
-      cache.put(request, networkResponse.clone())
-    }
-    return networkResponse
-  } catch (error) {
-    const cache = await caches.open(DYNAMIC_CACHE)
-    const cachedResponse = await cache.match(request)
+    const cache = await caches.open(API_CACHE);
+    const cachedResponse = await cache.match(request);
+    
+    // Always try to fetch fresh data
+    const fetchPromise = fetch(request).then((response) => {
+      if (response.status === 200) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    }).catch((error) => {
+      console.warn('API fetch failed:', error);
+      return null;
+    });
+    
+    // Return cached response immediately if available
     if (cachedResponse) {
-      return cachedResponse
+      // Update cache in background
+      fetchPromise;
+      return cachedResponse;
     }
-    return new Response('', { status: 404 })
+    
+    // No cache, wait for network
+    const networkResponse = await fetchPromise;
+    if (networkResponse) {
+      return networkResponse;
+    }
+    
+    throw new Error('No cached response and network failed');
+  } catch (error) {
+    console.error('Stale while revalidate strategy failed:', error);
+    return createErrorResponse();
   }
 }
 
-// Handle API requests with network-first strategy
-async function handleApiRequest(request) {
+// Generic fetch strategy
+async function genericFetchStrategy(request) {
   try {
-    const networkResponse = await fetch(request)
-    if (networkResponse.ok) {
-      const cache = await caches.open(DYNAMIC_CACHE)
-      cache.put(request, networkResponse.clone())
-    }
-    return networkResponse
+    return await fetch(request);
   } catch (error) {
-    const cache = await caches.open(DYNAMIC_CACHE)
-    const cachedResponse = await cache.match(request)
-    if (cachedResponse) {
-      return cachedResponse
-    }
-    return new Response('', { status: 503 })
+    const cache = await caches.open(DYNAMIC_CACHE);
+    const cachedResponse = await cache.match(request);
+    return cachedResponse || createErrorResponse();
   }
+}
+
+// Helper function to fetch and cache
+async function fetchAndCache(request, cache) {
+  try {
+    const response = await fetch(request);
+    if (response.status === 200) {
+      cache.put(request, response.clone());
+    }
+  } catch (error) {
+    console.warn('Background fetch failed:', error);
+  }
+}
+
+// Helper functions to determine request types
+function isStaticAsset(request) {
+  const url = new URL(request.url);
+  return CACHE_STRATEGIES.static.some(type => 
+    request.headers.get('accept')?.includes(type) ||
+    url.pathname.match(/\.(css|js|png|jpg|jpeg|webp|avif|svg|woff|woff2|ttf|eot)$/i)
+  );
+}
+
+function isAPIRequest(url) {
+  return url.pathname.startsWith('/api/') || 
+         url.hostname !== self.location.hostname;
+}
+
+function isHTMLRequest(request) {
+  return request.headers.get('accept')?.includes('text/html') ||
+         request.url.endsWith('/') ||
+         !request.url.includes('.');
+}
+
+// Create error responses
+function createErrorResponse() {
+  return new Response(
+    JSON.stringify({ 
+      error: 'Network error occurred',
+      message: 'الخدمة غير متاحة حالياً'
+    }),
+    {
+      status: 503,
+      statusText: 'Service Unavailable',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    }
+  );
+}
+
+function createOfflinePage() {
+  const offlineHTML = `
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>سندس AI - غير متصل</title>
+      <style>
+        body {
+          font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+          margin: 0;
+          padding: 2rem;
+          text-align: center;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .container {
+          max-width: 500px;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 3rem;
+          border-radius: 20px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; }
+        .retry-btn {
+          background: #4CAF50;
+          color: white;
+          border: none;
+          padding: 1rem 2rem;
+          font-size: 1.1rem;
+          border-radius: 50px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .retry-btn:hover {
+          background: #45a049;
+          transform: translateY(-2px);
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>🔌 غير متصل</h1>
+        <p>يبدو أنك غير متصل بالإنترنت. تحقق من اتصالك وحاول مرة أخرى.</p>
+        <button class="retry-btn" onclick="window.location.reload()">
+          إعادة المحاولة
+        </button>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return new Response(offlineHTML, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-cache'
+    }
+  });
 }
 
 // Background sync for offline actions
 self.addEventListener('sync', (event) => {
+  console.log('Service Worker: Background sync triggered');
+  
   if (event.tag === 'background-sync') {
-    event.waitUntil(doBackgroundSync())
+    event.waitUntil(
+      // Handle any queued offline actions
+      handleBackgroundSync()
+    );
   }
-})
+});
 
-async function doBackgroundSync() {
-  // Handle offline form submissions, etc.
-  console.log('Performing background sync')
+async function handleBackgroundSync() {
+  try {
+    // Implement your background sync logic here
+    console.log('Handling background sync...');
+    
+    // Example: Send queued form submissions
+    const queuedData = await getQueuedData();
+    for (const data of queuedData) {
+      try {
+        await fetch('/api/submit', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        // Remove from queue on success
+        await removeFromQueue(data.id);
+      } catch (error) {
+        console.warn('Failed to sync data:', error);
+      }
+    }
+  } catch (error) {
+    console.error('Background sync failed:', error);
+  }
 }
 
 // Push notifications
 self.addEventListener('push', (event) => {
+  console.log('Service Worker: Push notification received');
+  
   const options = {
-    body: event.data ? event.data.text() : 'New update from Sondos AI',
+    body: event.data ? event.data.text() : 'إشعار جديد من سندس AI',
     icon: '/assets/sondos-mark-light.png',
     badge: '/assets/sondos-mark-light.png',
-    vibrate: [100, 50, 100],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    },
+    tag: 'sondos-notification',
+    requireInteraction: true,
     actions: [
       {
-        action: 'explore',
-        title: 'View Details',
-        icon: '/assets/sondos-mark-light.png'
+        action: 'view',
+        title: 'عرض',
+        icon: '/icons/view.png'
       },
       {
-        action: 'close',
-        title: 'Close',
-        icon: '/assets/sondos-mark-light.png'
+        action: 'dismiss',
+        title: 'إغلاق',
+        icon: '/icons/close.png'
       }
     ]
-  }
+  };
 
   event.waitUntil(
-    self.registration.showNotification('Sondos AI', options)
-  )
-})
+    self.registration.showNotification('سندس AI', options)
+  );
+});
 
-// Notification click
+// Notification click handling
 self.addEventListener('notificationclick', (event) => {
-  event.notification.close()
+  event.notification.close();
 
-  if (event.action === 'explore') {
+  if (event.action === 'view') {
     event.waitUntil(
       clients.openWindow('/')
-    )
+    );
   }
-}) 
+});
+
+// Placeholder functions for queue management
+async function getQueuedData() {
+  // Implement queue retrieval from IndexedDB
+  return [];
+}
+
+async function removeFromQueue(id) {
+  // Implement queue item removal from IndexedDB
+  console.log('Removing from queue:', id);
+}
+
+// Performance monitoring
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'PERFORMANCE_MARK') {
+    // Handle performance marks from the main thread
+    console.log('Performance mark received:', event.data.mark);
+  }
+});
+
+console.log('Sondos AI Service Worker v2.0.0 loaded successfully');
