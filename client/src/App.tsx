@@ -30,6 +30,12 @@ function Router() {
   // Apply RTL direction for Arabic
   document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr'
   document.documentElement.lang = locale === 'ar' ? 'ar' : 'en'
+  
+  // Ensure Arabic is default
+  if (!localStorage.getItem('locale')) {
+    document.documentElement.dir = 'rtl'
+    document.documentElement.lang = 'ar'
+  }
 
   return (
     <Switch>

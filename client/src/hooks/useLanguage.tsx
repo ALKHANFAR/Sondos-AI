@@ -23,7 +23,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const saved = (
       typeof window !== 'undefined' ? localStorage.getItem('locale') : null
     ) as Locale | null
-    return saved ?? 'en'
+    return saved ?? 'ar'
   })
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export function useLanguage(): LanguageContextValue {
   if (!ctx) {
     // Fallback implementation without hooks to avoid conditional hook calls
     return {
-      locale: 'en' as Locale,
+      locale: 'ar' as Locale,
       changeLocale: () => {
         // No-op fallback
       },
