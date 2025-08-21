@@ -7,7 +7,7 @@ import Layout from '@/components/Layout'
 import SEOHead from '@/components/SEOHead'
 import Analytics from '@/components/Analytics'
 import PerformanceOptimizer from '@/components/PerformanceOptimizer'
-import PerformanceMonitor from '@/components/PerformanceMonitor'
+
 import Home from '@/pages/Home'
 import Industries from '@/pages/Industries'
 import Pricing from '@/pages/Pricing'
@@ -64,8 +64,6 @@ function App() {
             <Router />
           </Layout>
           <Toaster />
-          {/* Performance Monitor - Only show in development */}
-          {import.meta.env.DEV && <PerformanceMonitor />}
         </TooltipProvider>
       </LanguageProvider>
     </QueryClientProvider>
