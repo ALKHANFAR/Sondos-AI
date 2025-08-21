@@ -2,13 +2,11 @@ import { useState } from 'react'
 import { Globe, X } from 'lucide-react'
 import { useLanguage } from '@/hooks/useLanguage'
 import { locales, localeNames, localeFlags, Locale } from '@/lib/locales'
-import { messages } from '@/lib/messages'
 import Button from './Button'
 
 export default function LangSwitcher() {
   const [isOpen, setIsOpen] = useState(false)
   const { locale, changeLocale } = useLanguage()
-  const t = messages[locale as keyof typeof messages] || messages.en
 
   const handleLanguageChange = (newLocale: Locale) => {
     changeLocale(newLocale)

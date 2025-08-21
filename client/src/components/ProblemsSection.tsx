@@ -32,7 +32,7 @@ export default function ProblemsSection() {
 
         {/* Problems Grid - compact */}
         <div className='mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-          {t.home.problems.items.map((problem: any, index: number) => {
+          {t.home.problems.items.map((problem: { icon: string; title: string; description: string }, index: number) => {
             const IconComponent = iconMap[problem.icon as keyof typeof iconMap]
             return (
               <div

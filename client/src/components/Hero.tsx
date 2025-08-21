@@ -5,7 +5,7 @@ import DemoCallForm from './DemoCallForm'
 import LogoMarquee from './LogoMarquee'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
-import { trackDemoRequest, trackEvent } from '@/components/Analytics'
+import { trackDemoRequest, trackEvent } from '@/lib/analytics-helpers'
 import { Play, CheckCircle, TrendingUp, Users } from 'lucide-react'
 
 export default function Hero() {

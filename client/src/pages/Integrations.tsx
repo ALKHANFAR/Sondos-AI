@@ -127,7 +127,7 @@ export default function Integrations() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     let items: IntegrationItem[] =
-      category === 'All' ? DATA : DATA.filter(i => i.categories.includes(category as any))
+      category === 'All' ? DATA : DATA.filter(i => i.categories.includes(category))
     if (q) items = items.filter(i => i.name.toLowerCase().includes(q))
     return items.sort((a, b) => a.name.localeCompare(b.name))
   }, [query, category])

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { Locale, isRTL } from '@/lib/locales'
 
 type LanguageContextValue = {
@@ -44,13 +44,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export function useLanguage(): LanguageContextValue {
   const ctx = useContext(LanguageContext)
+  
   if (!ctx) {
-    const [fallbackLocale, setFallbackLocale] = useState<Locale>('en')
-    useEffect(() => updateDocument(fallbackLocale), [fallbackLocale])
+    // Fallback implementation without hooks to avoid conditional hook calls
     return {
-      locale: fallbackLocale,
-      changeLocale: (l: Locale) => setFallbackLocale(l),
-    } as LanguageContextValue
+      locale: 'en' as Locale,
+      changeLocale: () => {
+        // No-op fallback
+      },
+    }
   }
   return ctx
 }

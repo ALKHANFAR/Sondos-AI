@@ -5,8 +5,8 @@ export function useLeadMagnet() {
   const [popupType, setPopupType] = useState<'exit-intent' | 'timed' | 'manual'>('manual')
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
-    let exitIntentListenerAdded = false
+      const timeoutId: ReturnType<typeof setTimeout> = setTimeout(() => {}, 0)
+  let exitIntentListenerAdded = false
 
     // Check if user has already seen popup today
     const lastShown = localStorage.getItem('leadMagnetLastShown')

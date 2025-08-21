@@ -214,7 +214,7 @@ export default function FeatureComparison() {
     },
   ]
 
-  const renderFeatureValue = (value: any) => {
+  const renderFeatureValue = (value: string | boolean | number) => {
     if (typeof value === 'boolean') {
       return value ? (
         <Check className='mx-auto h-5 w-5 text-green-500' />

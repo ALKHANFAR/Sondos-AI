@@ -65,7 +65,7 @@ function App() {
           </Layout>
           <Toaster />
           {/* Performance Monitor - Only show in development */}
-          {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
+          {import.meta.env.DEV && <PerformanceMonitor />}
         </TooltipProvider>
       </LanguageProvider>
     </QueryClientProvider>

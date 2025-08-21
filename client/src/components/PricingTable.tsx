@@ -72,14 +72,14 @@ export default function PricingTable() {
             <div
               key={index}
               className={`relative flex-1 rounded-2xl bg-white p-6 shadow-custom transition-shadow hover:shadow-purple ${
-                (plan as any).popular
+                (plan as { popular?: string }).popular
                   ? 'ring-primary/20 scale-105 border-2 border-primary ring-2'
                   : ''
               }`}
             >
-              {(plan as any).popular && (
+              {(plan as { popular?: string }).popular && (
                 <div className='absolute -top-3 left-1/2 -translate-x-1/2 transform'>
-                  <Badge>{(plan as any).popular}</Badge>
+                  <Badge>{(plan as { popular?: string }).popular}</Badge>
                 </div>
               )}
 

@@ -186,7 +186,7 @@ export const generateSchemaOrg = (page: string, locale: string = 'en') => {
     }
   }
   
-  return (schemas as Record<string, any>)[page] || schemas.home
+  return (schemas as Record<string, unknown>)[page] || schemas.home
 }
 
 export const generateFAQSchema = (faqs: Array<{question: string, answer: string}>) => {

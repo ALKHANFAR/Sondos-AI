@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CheckCircle, Calculator, TrendingDown, DollarSign } from 'lucide-react'
+import { CheckCircle, Calculator } from 'lucide-react'
 
 export default function CostCalculator() {
   const [callsPerMonth, setCallsPerMonth] = useState(3200)

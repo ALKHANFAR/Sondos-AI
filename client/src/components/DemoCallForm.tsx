@@ -1,6 +1,5 @@
-import { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { Phone } from 'lucide-react'
-import Button from './Button'
 import { useToast } from '@/hooks/use-toast'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'

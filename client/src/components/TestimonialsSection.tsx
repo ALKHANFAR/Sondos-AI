@@ -28,7 +28,7 @@ export default function TestimonialsSection() {
 
         {/* Testimonials Grid */}
         <div className='mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3'>
-          {t.home.testimonials.items.map((testimonial: any, index: number) => (
+          {t.home.testimonials.items.map((testimonial: { quote: string; stat?: string; statDescription?: string; name: string; title: string; company: string }, index: number) => (
             <div
               key={index}
               className='group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-xl transition-all duration-500 hover:shadow-2xl'
@@ -94,7 +94,7 @@ export default function TestimonialsSection() {
           </div>
 
           <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
-                          {t.home.testimonials.testimonialStats.map((stat: any, index: number) => (
+                          {t.home.testimonials.testimonialStats.map((stat: { number: string; label: string }, index: number) => (
               <div key={index} className='text-center'>
                 <div className='mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-3xl font-bold text-transparent md:text-4xl'>
                   {stat.number}

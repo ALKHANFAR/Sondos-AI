@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'wouter'
 import { useState, useEffect } from 'react'
 import { 
@@ -58,7 +59,7 @@ export default function Footer() {
   // Social media links
   const socialLinks: SocialLink[] = [
     {
-      name: 'LinkedIn',
+      name: 'Linkedin',
       href: 'https://www.linkedin.com/company/sondoscallcenter/',
       icon: <Linkedin className="h-5 w-5" />,
       color: 'hover:text-blue-400'

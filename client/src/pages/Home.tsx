@@ -17,7 +17,6 @@ const Faq = lazy(() => import('@/components/Faq'))
 
 import Container from '@/components/Container'
 import Section from '@/components/Section'
-import Button from '@/components/Button'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
@@ -92,7 +91,7 @@ export default function Home() {
                   description={card.description}
                   gradientFrom={card.gradientFrom}
                   gradientTo={card.gradientTo}
-                  onPlay={() => console.log(`Playing ${card.title}`)}
+                  onPlay={() => trackEvent('demo_play', 'engagement', card.title)}
                 />
               ))}
             </Suspense>

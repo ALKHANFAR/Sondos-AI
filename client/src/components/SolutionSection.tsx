@@ -14,7 +14,7 @@ const iconMap = {
 
 export default function SolutionSection() {
   const { locale } = useLanguage()
-  const t = (messages[locale as keyof typeof messages] || messages.en) as any
+  const t = messages[locale as keyof typeof messages] || messages.en
 
   return (
     <Section className='bg-gradient-to-br from-green-50/50 to-blue-50/30'>
@@ -30,7 +30,7 @@ export default function SolutionSection() {
 
         {/* Solutions Grid - compact */}
         <div className='mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-          {t.home.solution.items.map((solution: any, index: number) => {
+          {t.home.solution.items.map((solution: { icon: string; title: string; stat: string; description: string }, index: number) => {
             const IconComponent = iconMap[solution.icon as keyof typeof iconMap]
             return (
               <div

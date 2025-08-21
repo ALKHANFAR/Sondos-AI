@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { X, Download, Calculator, BookOpen, Gift } from 'lucide-react'
 import Button from './Button'
 import { useToast } from '@/hooks/use-toast'

@@ -1,10 +1,9 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
-import { Menu, X, Search, Bell, User, ChevronDown } from 'lucide-react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import { Menu, X, Search, Bell, ChevronDown } from 'lucide-react'
 import { Link, useLocation } from 'wouter'
 import Container from './Container'
 import Logo from './Logo'
 import LangSwitcher from './LangSwitcher'
-import Button from './Button'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
 

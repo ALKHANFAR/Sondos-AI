@@ -1,5 +1,5 @@
 import Container from './Container'
-import { useLanguage } from '@/hooks/useLanguage'
+
 
 type Brand = { name: string; slug?: string }
 
@@ -29,7 +29,7 @@ const brands: Brand[] = [
 ]
 
 export default function LogoMarquee() {
-  const { locale } = useLanguage()
+
 
   return (
     <div className='mt-16 border-t pt-8' style={{ borderColor: '#EEF2F7' }}>

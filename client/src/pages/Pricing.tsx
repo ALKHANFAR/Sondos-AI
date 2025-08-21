@@ -5,15 +5,10 @@ import {
   Users,
   Zap,
   ArrowRight,
-  Calculator,
-  TrendingUp,
   Phone,
   Check,
   X,
   MessageSquare,
-  Code,
-  Globe,
-  Settings,
   BarChart,
 } from 'lucide-react'
 import Container from '@/components/Container'
@@ -22,21 +17,17 @@ import Button from '@/components/Button'
 import CostCalculator from '@/components/CostCalculator'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
-import { trackEvent } from '@/components/Analytics'
+import { trackEvent } from '@/lib/analytics-helpers'
 import SEOHead from '@/components/SEOHead'
 
 export default function Pricing() {
   const { locale } = useLanguage()
   const t = messages[locale as keyof typeof messages] || messages.en
 
-  // Fallback function for new pricing page properties
-  const getPricingText = (key: string, fallback: string = '') => {
-    return (t.pricingPage as any)?.[key] || fallback
-  }
+
   const [isYearly, setIsYearly] = useState(false)
   
-  // Debug log
-  console.log('Pricing component rendered with isYearly:', isYearly)
+
 
   const plans = [
     {
@@ -675,9 +666,7 @@ export default function Pricing() {
               </span>
               <button
                 onClick={() => {
-                  console.log('Toggle clicked, current isYearly:', isYearly)
-                  setIsYearly(!isYearly)
-                  console.log('New isYearly value:', !isYearly)
+                          setIsYearly(!isYearly)
                 }}
                 className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
                   isYearly ? 'bg-blue-600' : 'bg-gray-200'
@@ -771,8 +760,8 @@ export default function Pricing() {
                               }`}
                             >
                               {typeof plan.price === 'number'
-                                ? plan.price.toLocaleString()
-                                : plan.price}
+                                ? String(plan.price).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                : String(plan.price)}
                             </span>
                             {!plan.isCustom && (
                               <span className='ml-1 text-lg text-gray-500'>{plan.currency}</span>
@@ -789,8 +778,8 @@ export default function Pricing() {
                             return (
                               <div className='mt-1 text-sm text-gray-400'>
                                 {locale === 'ar' 
-                                  ? `≈ $${usdValue.toLocaleString()}`
-                                  : `≈ ${sarValue.toLocaleString()} SAR`
+                                  ? `≈ $${usdValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+                                  : `≈ ${sarValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} SAR`
                                 }
                               </div>
                             );
@@ -908,8 +897,8 @@ export default function Pricing() {
                   </h3>
                   <div className='mb-1 text-2xl font-bold text-gray-900'>
                     {typeof plan.price === 'number'
-                      ? `${plan.price.toLocaleString()} ${plan.currency}`
-                      : plan.price}
+                      ? `${String(plan.price).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ${plan.currency}`
+                      : String(plan.price)}
                   </div>
                   {plan.originalPrice && isYearly && (
                     <div className='text-xs text-gray-400 line-through'>
@@ -927,8 +916,8 @@ export default function Pricing() {
                     return (
                       <div className='text-xs text-gray-500'>
                         {locale === 'ar' 
-                          ? `≈ $${usdValue.toLocaleString()}`
-                          : `≈ ${sarValue.toLocaleString()} SAR`
+                          ? `≈ $${usdValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+                          : `≈ ${sarValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} SAR`
                         }
                       </div>
                     );

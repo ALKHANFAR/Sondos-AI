@@ -48,17 +48,18 @@ export default function PerformanceMonitor() {
         const entries = list.getEntries()
         const fid = entries[entries.length - 1]
         if (fid) {
-          setMetrics(prev => ({ ...prev, fid: fid.processingStart - fid.startTime }))
+          const fidEntry = fid as PerformanceEntry & { processingStart: number; startTime: number }
+          setMetrics(prev => ({ ...prev, fid: fidEntry.processingStart - fidEntry.startTime }))
         }
       })
       fidObserver.observe({ entryTypes: ['first-input'] })
 
       // Cumulative Layout Shift
       const clsObserver = new PerformanceObserver((list) => {
-        let clsValue = 0
+                let clsValue = 0
         for (const entry of list.getEntries()) {
-          if (!entry.hadRecentInput) {
-            clsValue += (entry as any).value
+          if (!(entry as PerformanceEntry & { hadRecentInput?: boolean }).hadRecentInput) {
+            clsValue += (entry as PerformanceEntry & { value: number }).value
           }
         }
         setMetrics(prev => ({ ...prev, cls: clsValue }))

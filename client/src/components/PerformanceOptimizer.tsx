@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import { useLanguage } from '@/hooks/useLanguage'
 
 export default function PerformanceOptimizer() {
@@ -68,7 +68,7 @@ export default function PerformanceOptimizer() {
     document.head.appendChild(style)
   }
 
-  const setupIntersectionObserver = () => {
+  const setupIntersectionObserver = useCallback(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -101,9 +101,9 @@ export default function PerformanceOptimizer() {
     animatedElements.forEach((element) => {
       observerRef.current?.observe(element)
     })
-  }
+  }, [])
 
-  const preloadCriticalResources = () => {
+  const preloadCriticalResources = useCallback(() => {
     // Preload critical CSS
     const criticalCSS = document.createElement('link')
     criticalCSS.rel = 'preload'
@@ -117,13 +117,13 @@ export default function PerformanceOptimizer() {
     criticalJS.href = '/src/main.tsx'
     criticalJS.as = 'script'
     document.head.appendChild(criticalJS)
-  }
+  }, [])
 
-  const setupServiceWorker = async () => {
+  const setupServiceWorker = useCallback(async () => {
     if ('serviceWorker' in navigator) {
       try {
         const registration = await navigator.serviceWorker.register('/sw.js')
-        console.log('Service Worker registered:', registration)
+        // Service Worker registered successfully
         
         // Check for updates
         registration.addEventListener('updatefound', () => {
@@ -139,11 +139,11 @@ export default function PerformanceOptimizer() {
             })
           }
         })
-      } catch (error) {
-        console.log('Service Worker registration failed:', error)
+      } catch {
+        // Service Worker registration failed
       }
     }
-  }
+  }, [locale])
 
   // Optimize scroll performance
   useEffect(() => {
@@ -170,7 +170,7 @@ export default function PerformanceOptimizer() {
 
   // Optimize resize performance
   useEffect(() => {
-    let resizeTimeout: NodeJS.Timeout
+    let resizeTimeout: ReturnType<typeof setTimeout>
     
     const handleResize = () => {
       clearTimeout(resizeTimeout)

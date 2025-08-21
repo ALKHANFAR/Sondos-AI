@@ -1,5 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage'
-import { seoContent, metaTags } from '@/lib/seo-content'
+import { seoContent } from '@/lib/seo-content'
 
 interface SEOHeadProps {
   title?: string

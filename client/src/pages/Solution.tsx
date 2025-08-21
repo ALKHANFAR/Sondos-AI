@@ -22,7 +22,7 @@ import Button from '@/components/Button'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
-import { trackEvent } from '@/components/Analytics'
+import { trackEvent } from '@/lib/analytics-helpers'
 
 // Lazy load heavy components
 const PlayCard = lazy(() => import('@/components/PlayCard'))

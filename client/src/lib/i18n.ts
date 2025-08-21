@@ -19,7 +19,7 @@ export function getI18nConfig(locale: Locale = 'en'): I18nConfig {
 
 export function formatMessage(
   key: string,
-  messages: any,
+  messages: Record<string, unknown>,
   params?: Record<string, string | number>,
 ): string {
   const keys = key.split('.')

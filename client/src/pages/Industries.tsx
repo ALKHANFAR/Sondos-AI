@@ -18,7 +18,7 @@ import Section from '@/components/Section'
 import Button from '@/components/Button'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
-import { trackEvent } from '@/components/Analytics'
+import { trackEvent } from '@/lib/analytics-helpers'
 import SEOHead from '@/components/SEOHead'
 
 export default function Industries() {

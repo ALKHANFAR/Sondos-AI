@@ -29,7 +29,7 @@ export default function HowItWorksSection() {
         {/* Steps */}
         <div className='mx-auto max-w-6xl'>
           <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-4'>
-            {t.home.howItWorks.steps.map((step: any, index: number) => {
+            {t.home.howItWorks.steps.map((step: { icon: string; number: number; title: string; description: string }, index: number) => {
               const IconComponent = iconMap[step.icon as keyof typeof iconMap]
               const isLastStep = index === t.home.howItWorks.steps.length - 1
 
