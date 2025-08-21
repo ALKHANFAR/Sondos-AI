@@ -19,6 +19,7 @@ import Button from '@/components/Button'
 import { useLanguage } from '@/hooks/useLanguage'
 import { messages } from '@/lib/messages'
 import { trackEvent } from '@/components/Analytics'
+import SEOHead from '@/components/SEOHead'
 
 export default function Industries() {
   const { locale } = useLanguage()
@@ -159,6 +160,7 @@ export default function Industries() {
 
   return (
     <>
+      <SEOHead page="industries" />
       {/* Hero Section */}
       <Section className='bg-gradient-to-br from-green-50/50 via-white to-blue-50/30 pt-32'>
         <Container>

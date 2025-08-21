@@ -94,7 +94,7 @@ export default function TestimonialsSection() {
           </div>
 
           <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
-            {t.home.testimonials.stats.map((stat: any, index: number) => (
+                          {t.home.testimonials.testimonialStats.map((stat: any, index: number) => (
               <div key={index} className='text-center'>
                 <div className='mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-3xl font-bold text-transparent md:text-4xl'>
                   {stat.number}

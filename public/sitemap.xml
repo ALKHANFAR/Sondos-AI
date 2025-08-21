@@ -1,62 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
   <!-- Homepage -->
   <url>
-    <loc>https://taskmaster.ai/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <loc>https://sondos.ai/</loc>
+    <lastmod>2024-12-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taskmaster.ai/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://taskmaster.ai/?lang=ar" />
-  </url>
-  
-  <!-- Solution Page -->
-  <url>
-    <loc>https://taskmaster.ai/solution</loc>
-    <lastmod>2024-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taskmaster.ai/solution?lang=en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://taskmaster.ai/solution?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/?lang=ar" />
+    <image:image>
+      <image:loc>https://sondos.ai/assets/sondos-lockup-light.png</image:loc>
+      <image:title>Sondos AI - AI Voice Agents</image:title>
+    </image:image>
   </url>
   
   <!-- Industries Page -->
   <url>
-    <loc>https://taskmaster.ai/industries</loc>
+    <loc>https://sondos.ai/industries</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taskmaster.ai/industries?lang=en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://taskmaster.ai/industries?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/industries?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/industries?lang=ar" />
   </url>
   
   <!-- Pricing Page -->
   <url>
-    <loc>https://taskmaster.ai/pricing</loc>
+    <loc>https://sondos.ai/pricing</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taskmaster.ai/pricing?lang=en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://taskmaster.ai/pricing?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/pricing?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/pricing?lang=ar" />
   </url>
   
-
+  <!-- Integrations Page -->
+  <url>
+    <loc>https://sondos.ai/integrations</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/integrations?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/integrations?lang=ar" />
+  </url>
+  
+  <!-- Case Studies Page -->
+  <url>
+    <loc>https://sondos.ai/case-studies</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/case-studies?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/case-studies?lang=ar" />
+  </url>
+  
+  <!-- About Page -->
+  <url>
+    <loc>https://sondos.ai/about</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/about?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/about?lang=ar" />
+  </url>
+  
+  <!-- Blog Page -->
+  <url>
+    <loc>https://sondos.ai/blog</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/blog?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/blog?lang=ar" />
+  </url>
+  
+  <!-- How It Works Page -->
+  <url>
+    <loc>https://sondos.ai/how-it-works</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/how-it-works?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/how-it-works?lang=ar" />
+  </url>
   
   <!-- Resources Page -->
   <url>
-    <loc>https://taskmaster.ai/resources</loc>
+    <loc>https://sondos.ai/resources</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taskmaster.ai/resources?lang=en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://taskmaster.ai/resources?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sondos.ai/resources?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sondos.ai/resources?lang=ar" />
   </url>
   
   <!-- Login Page -->
   <url>
-    <loc>https://taskmaster.ai/login</loc>
+    <loc>https://sondos.ai/login</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -64,7 +107,7 @@
   
   <!-- Signup Page -->
   <url>
-    <loc>https://taskmaster.ai/signup</loc>
+    <loc>https://sondos.ai/signup</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

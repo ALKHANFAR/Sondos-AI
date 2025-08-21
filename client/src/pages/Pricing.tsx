@@ -34,6 +34,9 @@ export default function Pricing() {
     return (t.pricingPage as any)?.[key] || fallback
   }
   const [isYearly, setIsYearly] = useState(false)
+  
+  // Debug log
+  console.log('Pricing component rendered with isYearly:', isYearly)
 
   const plans = [
     {
@@ -227,10 +230,16 @@ export default function Pricing() {
             corporate: 'Custom',
           },
           {
-            name: 'Monthly Price',
-            basic: locale === 'ar' ? '990 ريال' : '$264',
-            professional: locale === 'ar' ? '2,490 ريال' : '$664',
-            enterprise: locale === 'ar' ? '5,990 ريال' : '$1,597',
+            name: isYearly ? (locale === 'ar' ? 'السعر السنوي' : 'Annual Price') : (locale === 'ar' ? 'السعر الشهري' : 'Monthly Price'),
+            basic: isYearly 
+              ? (locale === 'ar' ? '792 ريال' : '$211')
+              : (locale === 'ar' ? '990 ريال' : '$264'),
+            professional: isYearly 
+              ? (locale === 'ar' ? '1,992 ريال' : '$531')
+              : (locale === 'ar' ? '2,490 ريال' : '$664'),
+            enterprise: isYearly 
+              ? (locale === 'ar' ? '4,792 ريال' : '$1,278')
+              : (locale === 'ar' ? '5,990 ريال' : '$1,597'),
             corporate: 'Custom Quote',
           },
           {
@@ -429,10 +438,7 @@ export default function Pricing() {
 
   return (
     <>
-      <SEOHead
-        title='Sondos AI Pricing - Choose Your Ideal Plan'
-        description="Explore Sondos AI's transparent pricing plans. From basic to enterprise solutions, find the right AI voice agent plan for your business needs."
-      />
+      <SEOHead page="pricing" />
       {/* Hero Section */}
       <Section className='relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 pb-20 pt-32'>
         {/* Background Elements */}
@@ -447,7 +453,7 @@ export default function Pricing() {
             {/* Badge */}
             <div className='mb-6 inline-flex items-center rounded-full border border-blue-400/30 bg-blue-500/20 px-4 py-2 text-sm font-medium text-blue-200 backdrop-blur-sm'>
               <Zap className='mr-2 h-4 w-4' />
-              {getPricingText('trustedBadge', 'Trusted by 2,500+ businesses worldwide')}
+              {t.pricingPage.trustedBadge}
             </div>
 
             {/* Main Heading */}
@@ -460,9 +466,7 @@ export default function Pricing() {
 
             {/* Subheading */}
             <p className='mx-auto mb-12 max-w-4xl text-xl leading-relaxed text-blue-100 md:text-2xl'>
-              {locale === 'ar'
-                ? 'حوّل عملك مع وكلاء الصوت الذكيين. ابدأ من 990 ريال/شهر فقط وتوسع بلا حدود.'
-                : 'Transform your business with AI-powered voice agents. Start from as low as $264/month and scale without limits.'}
+              {t.pricingPage.heroDescription}
             </p>
 
             {/* Stats */}
@@ -650,7 +654,6 @@ export default function Pricing() {
               <span className='bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
                 {t.pricingPage.plansTitleHighlight}
               </span>
-              {locale === 'ar' ? ' لعملك' : ' for your business'}
             </h2>
             <p className='mx-auto mb-8 max-w-3xl text-xl text-gray-600'>
               {t.pricingPage.plansSubtitle}
@@ -659,10 +662,7 @@ export default function Pricing() {
             {/* Currency Exchange Note */}
             <div className='mx-auto mb-12 max-w-2xl rounded-lg bg-blue-50 p-4 text-center'>
               <p className='text-sm text-blue-700'>
-                {locale === 'ar' 
-                  ? 'الأسعار معروضة بالريال السعودي. المعادل بالدولار معروض للمرجع (1 USD ≈ 3.75 SAR)'
-                  : 'Prices shown in USD. SAR equivalent shown for reference (1 USD ≈ 3.75 SAR)'
-                }
+                {t.pricingPage.currencyNote}
               </p>
             </div>
 
@@ -674,7 +674,11 @@ export default function Pricing() {
                 {t.pricingPage.monthly}
               </span>
               <button
-                onClick={() => setIsYearly(!isYearly)}
+                onClick={() => {
+                  console.log('Toggle clicked, current isYearly:', isYearly)
+                  setIsYearly(!isYearly)
+                  console.log('New isYearly value:', !isYearly)
+                }}
                 className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
                   isYearly ? 'bg-blue-600' : 'bg-gray-200'
                 }`}
@@ -774,14 +778,23 @@ export default function Pricing() {
                               <span className='ml-1 text-lg text-gray-500'>{plan.currency}</span>
                             )}
                           </div>
-                          {!plan.isCustom && (
-                            <div className='mt-1 text-sm text-gray-400'>
-                              {locale === 'ar' 
-                                ? `≈ $${Math.round(parseInt(plan.price.replace(/[^\d]/g, '')) / 3.75).toLocaleString()}`
-                                : `≈ ${Math.round(parseInt(plan.price.replace(/[^\d]/g, '')) * 3.75).toLocaleString()} SAR`
-                              }
-                            </div>
-                          )}
+                          {!plan.isCustom && (() => {
+                            const priceStr = String(plan.price);
+                            const priceNum = parseInt(priceStr.replace(/[^\d]/g, ''));
+                            if (isNaN(priceNum)) return null;
+                            const roundedNum = Math.round(priceNum);
+                            const finalNum = roundedNum as number;
+                            const sarValue = Math.round(finalNum * 3.75);
+                            const usdValue = Math.round(finalNum / 3.75);
+                            return (
+                              <div className='mt-1 text-sm text-gray-400'>
+                                {locale === 'ar' 
+                                  ? `≈ $${usdValue.toLocaleString()}`
+                                  : `≈ ${sarValue.toLocaleString()} SAR`
+                                }
+                              </div>
+                            );
+                          })()}
                         </div>
                       </div>
                       <span className='text-sm text-gray-500'>{plan.period}</span>
@@ -878,7 +891,7 @@ export default function Pricing() {
             </p>
           </div>
 
-          {/* Enhanced comparison table */}
+                      {/* Enhanced comparison table */}
           <div className='overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl'>
             {/* Plan headers */}
             <div className='grid grid-cols-5 gap-4 border-b-2 border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100 p-6'>
@@ -898,14 +911,28 @@ export default function Pricing() {
                       ? `${plan.price.toLocaleString()} ${plan.currency}`
                       : plan.price}
                   </div>
-                  {!plan.isCustom && (
-                    <div className='text-xs text-gray-500'>
-                      {locale === 'ar' 
-                        ? `≈ $${Math.round(parseInt(plan.price.replace(/[^\d]/g, '')) / 3.75).toLocaleString()}`
-                        : `≈ ${Math.round(parseInt(plan.price.replace(/[^\d]/g, '')) * 3.75).toLocaleString()} SAR`
-                      }
+                  {plan.originalPrice && isYearly && (
+                    <div className='text-xs text-gray-400 line-through'>
+                      {plan.originalPrice}
                     </div>
                   )}
+                  {!plan.isCustom && (() => {
+                    const priceStr = String(plan.price);
+                    const priceNum = parseInt(priceStr.replace(/[^\d]/g, ''));
+                    if (isNaN(priceNum)) return null;
+                    const roundedNum = Math.round(priceNum);
+                    const finalNum = roundedNum as number;
+                    const sarValue = Math.round(finalNum * 3.75);
+                    const usdValue = Math.round(finalNum / 3.75);
+                    return (
+                      <div className='text-xs text-gray-500'>
+                        {locale === 'ar' 
+                          ? `≈ $${usdValue.toLocaleString()}`
+                          : `≈ ${sarValue.toLocaleString()} SAR`
+                        }
+                      </div>
+                    );
+                  })()}
                   <div className='mb-3 text-sm text-gray-500'>{plan.period}</div>
                   <Button
                     size='sm'

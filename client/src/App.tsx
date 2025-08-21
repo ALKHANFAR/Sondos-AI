@@ -6,6 +6,8 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import Layout from '@/components/Layout'
 import SEOHead from '@/components/SEOHead'
 import Analytics from '@/components/Analytics'
+import PerformanceOptimizer from '@/components/PerformanceOptimizer'
+import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Home from '@/pages/Home'
 import Industries from '@/pages/Industries'
 import Pricing from '@/pages/Pricing'
@@ -14,6 +16,9 @@ import Resources from '@/pages/Resources'
 // import Blog from '@/pages/Blog' // Hidden as requested
 import CaseStudies from '@/pages/CaseStudies'
 import About from '@/pages/About'
+import Blog from '@/pages/Blog'
+import BlogPost from '@/pages/BlogPost'
+import HowItWorks from '@/pages/HowItWorks'
 import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
 import NotFound from '@/pages/not-found'
@@ -37,6 +42,9 @@ function Router() {
       {/* <Route path='/blog' component={Blog} /> Hidden as requested */}
       <Route path='/case-studies' component={CaseStudies} />
       <Route path='/about' component={About} />
+      <Route path='/blog' component={Blog} />
+      <Route path='/blog/:id' component={BlogPost} />
+      <Route path='/how-it-works' component={HowItWorks} />
       <Route path='/login' component={Login} />
       <Route path='/signup' component={Signup} />
       <Route component={NotFound} />
@@ -51,10 +59,13 @@ function App() {
         <TooltipProvider>
           <SEOHead />
           <Analytics />
+          <PerformanceOptimizer />
           <Layout>
             <Router />
           </Layout>
           <Toaster />
+          {/* Performance Monitor - Only show in development */}
+          {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
         </TooltipProvider>
       </LanguageProvider>
     </QueryClientProvider>

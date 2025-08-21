@@ -1,14 +1,17 @@
 import Container from '@/components/Container'
 import Section from '@/components/Section'
 import { useLanguage } from '@/hooks/useLanguage'
+import SEOHead from '@/components/SEOHead'
 
 export default function About() {
   const { locale } = useLanguage()
   const isArabic = locale === 'ar'
 
   return (
-    <div className='min-h-screen'>
-      <Section className='py-16'>
+    <>
+      <SEOHead page="about" />
+      <div className='min-h-screen'>
+        <Section className='py-16'>
         <Container>
           <div className='mx-auto max-w-5xl'>
             <div className='mb-8 text-center'>
@@ -199,6 +202,7 @@ export default function About() {
           </div>
         </Container>
       </Section>
-    </div>
+      </div>
+    </>
   )
 }

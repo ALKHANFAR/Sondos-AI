@@ -1,0 +1,313 @@
+/**
+ * Header Component Styles
+ * Following BEM naming convention and international standards
+ * Supports RTL layout for Arabic
+ */
+
+/* Header Block */
+.header {
+  @apply relative z-40 transition-all duration-300;
+}
+
+.header--scrolled {
+  @apply fixed left-0 right-0 top-0 shadow-sm bg-white/95 backdrop-blur-sm;
+}
+
+.header--top {
+  @apply bg-transparent;
+}
+
+/* Header Elements */
+.header__content {
+  @apply py-4;
+}
+
+.header__nav {
+  @apply flex items-center justify-between;
+}
+
+.header__logo {
+  @apply flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md transition-transform hover:scale-105;
+}
+
+.header__nav-items {
+  @apply hidden lg:flex items-center space-x-1;
+}
+
+.header__nav-items[dir="rtl"] {
+  @apply space-x-reverse;
+}
+
+.header__actions {
+  @apply flex items-center space-x-4;
+}
+
+.header__actions[dir="rtl"] {
+  @apply space-x-reverse;
+}
+
+/* Navigation Items */
+.nav-item {
+  @apply transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md;
+}
+
+.nav-item--desktop {
+  @apply relative inline-flex items-center px-3 py-2 text-sm font-medium;
+}
+
+.nav-item--mobile {
+  @apply block px-3 py-2 text-base font-medium;
+}
+
+.nav-item--active {
+  @apply text-primary border-b-2 border-primary;
+}
+
+.nav-item--inactive {
+  @apply text-gray-700 hover:text-primary hover:bg-gray-50;
+}
+
+/* Navigation Links */
+.nav-link {
+  @apply transition-all duration-200 rounded-md;
+}
+
+.nav-link--internal {
+  @apply hover:bg-gray-50;
+}
+
+.nav-link--external {
+  @apply hover:bg-gray-50;
+}
+
+.nav-link--external::after {
+  content: "↗";
+  @apply ml-1 text-xs opacity-70;
+}
+
+.nav-link--external[dir="rtl"]::after {
+  content: "↖";
+  @apply mr-1 ml-0;
+}
+
+/* Dropdown Navigation */
+.nav-dropdown {
+  @apply relative;
+}
+
+.nav-dropdown__trigger {
+  @apply flex items-center gap-1 transition-all duration-200;
+}
+
+.nav-dropdown__trigger:hover .nav-dropdown__icon {
+  @apply rotate-180;
+}
+
+.nav-dropdown__icon {
+  @apply transition-transform duration-200;
+}
+
+.nav-dropdown__menu {
+  @apply absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-100;
+  @apply opacity-0 invisible group-hover:opacity-100 group-hover:visible;
+  @apply transition-all duration-200 z-50;
+}
+
+.nav-dropdown__menu[dir="rtl"] {
+  @apply right-0 left-auto;
+}
+
+.nav-dropdown__content {
+  @apply py-1;
+}
+
+.nav-dropdown__item {
+  @apply block px-4 py-2 text-sm text-gray-700 transition-colors;
+  @apply hover:bg-gray-50 hover:text-primary focus:bg-gray-50 focus:text-primary;
+}
+
+/* CTA Button */
+.nav-cta {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white;
+  @apply transition-all duration-200 shadow-sm hover:shadow-md;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  background: linear-gradient(90deg, #ff443b, #e63b33);
+}
+
+.nav-cta:hover {
+  @apply transform -translate-y-0.5 shadow-lg;
+  background: linear-gradient(90deg, #e63b33, #cc342a);
+}
+
+.nav-cta--mobile {
+  @apply w-full;
+}
+
+.nav-cta--desktop {
+  @apply w-auto;
+}
+
+/* Action Buttons */
+.header__search-btn,
+.header__notifications-btn,
+.header__mobile-toggle {
+  @apply flex items-center justify-center w-9 h-9 rounded-md transition-colors;
+  @apply text-gray-500 hover:text-gray-700 hover:bg-gray-100;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+.header__notifications-btn {
+  @apply relative;
+}
+
+.header__notification-badge {
+  @apply absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full;
+  @apply animate-pulse;
+}
+
+.header__notification-badge[dir="rtl"] {
+  @apply -left-1 -right-auto;
+}
+
+/* Language Switcher */
+.header__lang-switcher {
+  @apply flex items-center;
+}
+
+/* Auth Section */
+.header__auth {
+  @apply hidden lg:flex items-center space-x-3;
+}
+
+.header__auth[dir="rtl"] {
+  @apply space-x-reverse;
+}
+
+/* Search */
+.header__search {
+  @apply mt-4 relative;
+}
+
+.header__search-container {
+  @apply relative;
+}
+
+.header__search-icon {
+  @apply absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400;
+}
+
+.header__search-icon[dir="rtl"] {
+  @apply right-3 left-auto;
+}
+
+.header__search-icon[dir="ltr"] {
+  @apply left-3;
+}
+
+.header__search-input {
+  @apply w-full py-3 border border-gray-200 rounded-lg transition-colors;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+}
+
+.header__search-input[dir="rtl"] {
+  @apply pr-10 pl-4 text-right;
+}
+
+.header__search-input[dir="ltr"] {
+  @apply pl-10 pr-4 text-left;
+}
+
+.header__search-close {
+  @apply absolute top-1/2 transform -translate-y-1/2 text-gray-400;
+  @apply hover:text-gray-600 transition-colors rounded;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+.header__search-close[dir="rtl"] {
+  @apply left-3 right-auto;
+}
+
+.header__search-close[dir="ltr"] {
+  @apply right-3;
+}
+
+/* Mobile Menu */
+.header__mobile-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-25 lg:hidden;
+}
+
+.header__mobile-menu {
+  @apply fixed top-0 bottom-0 w-80 max-w-sm bg-white shadow-xl lg:hidden;
+  @apply transform transition-transform duration-300 ease-in-out z-50;
+}
+
+.header__mobile-menu[dir="rtl"] {
+  @apply left-0;
+}
+
+.header__mobile-menu[dir="ltr"] {
+  @apply right-0;
+}
+
+.header__mobile-container {
+  @apply flex flex-col h-full;
+}
+
+.header__mobile-header {
+  @apply flex items-center justify-between p-4 border-b border-gray-200;
+}
+
+.header__mobile-close {
+  @apply p-2 rounded-md text-gray-400 transition-colors;
+  @apply hover:text-gray-600 hover:bg-gray-100;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary;
+}
+
+/* Accessibility Helpers */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus Indicators */
+.header *:focus-visible {
+  @apply ring-2 ring-primary ring-offset-2 outline-none;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .header {
+    @apply border-b border-gray-900;
+  }
+  
+  .nav-item--active {
+    @apply bg-gray-900 text-white;
+  }
+  
+  .nav-dropdown__menu {
+    @apply border-2 border-gray-900;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .header *,
+  .nav-dropdown__menu,
+  .header__mobile-menu {
+    @apply transition-none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .header {
+    @apply shadow-none border-b border-gray-300;
+  }
+  
+  .header__actions,
+  .header__mobile-toggle {
+    @apply hidden;
+  }
+}

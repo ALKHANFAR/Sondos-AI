@@ -1,58 +1,102 @@
 {
-  "name": "TaskMaster - AI Voice Agents",
-  "short_name": "TaskMaster",
-  "description": "Transform missed calls into booked appointments with AI voice agents that never sleep",
+  "name": "Sondos AI - AI Voice Agents That Never Sleep",
+  "short_name": "Sondos AI",
+  "description": "Transform missed calls into booked appointments with AI voice agents. 24/7 customer service automation.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#dc2626",
   "orientation": "portrait-primary",
-  "lang": "en",
   "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/assets/sondos-mark-light.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/assets/sondos-mark-light.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
     },
     {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "src": "/assets/sondos-lockup-light.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
-  "categories": ["business", "productivity", "utilities"],
   "shortcuts": [
-    {
-      "name": "Book Demo",
-      "short_name": "Demo",
-      "description": "Book a free demo call",
-      "url": "/?action=demo",
-      "icons": [
-        {
-          "src": "/favicon-32x32.png",
-          "sizes": "32x32"
-        }
-      ]
-    },
     {
       "name": "Pricing",
       "short_name": "Pricing",
-      "description": "View pricing plans",
+      "description": "View our pricing plans",
       "url": "/pricing",
       "icons": [
         {
-          "src": "/favicon-32x32.png",
-          "sizes": "32x32"
+          "src": "/assets/sondos-mark-light.png",
+          "sizes": "96x96"
         }
       ]
+    },
+    {
+      "name": "Industries",
+      "short_name": "Industries",
+      "description": "Explore industry solutions",
+      "url": "/industries",
+      "icons": [
+        {
+          "src": "/assets/sondos-mark-light.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "short_name": "Resources",
+      "description": "Access help and resources",
+      "url": "/resources",
+      "icons": [
+        {
+          "src": "/assets/sondos-mark-light.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Sondos AI Desktop Interface"
+    },
+    {
+      "src": "/assets/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Sondos AI Mobile Interface"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+sondos",
+      "url": "/?protocol=%s"
     }
   ]
 }

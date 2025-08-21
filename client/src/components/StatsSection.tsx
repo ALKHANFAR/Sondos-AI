@@ -8,30 +8,33 @@ export default function StatsSection() {
   const { locale } = useLanguage()
   const t = messages[locale as keyof typeof messages] || messages.en
 
+  // Fallback if stats.items is undefined
+  const statsItems = t.stats?.items || []
+  
   const stats = [
     {
       icon: Users,
-      number: t.stats.items[0].number,
-      label: t.stats.items[0].label,
-      description: t.stats.items[0].description,
-    },
-    {
-      icon: Clock,
-      number: t.stats.items[1].number,
-      label: t.stats.items[1].label,
-      description: t.stats.items[1].description,
+      number: statsItems[0]?.number || '10,000+',
+      label: statsItems[0]?.label || 'Active Users',
+      description: statsItems[0]?.description || 'Global businesses scaling with AI',
     },
     {
       icon: TrendingUp,
-      number: t.stats.items[2].number,
-      label: t.stats.items[2].label,
-      description: t.stats.items[2].description,
+      number: statsItems[1]?.number || '2.5M+',
+      label: statsItems[1]?.label || 'Calls Handled',
+      description: statsItems[1]?.description || 'Monthly successful conversations',
+    },
+    {
+      icon: Clock,
+      number: statsItems[2]?.number || '250%',
+      label: statsItems[2]?.label || 'Average ROI',
+      description: statsItems[2]?.description || 'Proven revenue increase',
     },
     {
       icon: Star,
-      number: t.stats.items[3].number,
-      label: t.stats.items[3].label,
-      description: t.stats.items[3].description,
+      number: statsItems[3]?.number || '4.9/5',
+      label: statsItems[3]?.label || 'Customer Rating',
+      description: statsItems[3]?.description || 'From 2,850+ satisfied businesses',
     },
   ]
 
@@ -46,9 +49,9 @@ export default function StatsSection() {
 
       <Container>
         <div className='mb-16 text-center'>
-          <h2 className='mb-6 text-4xl font-bold md:text-5xl'>Transforming Businesses Worldwide</h2>
+          <h2 className='mb-6 text-4xl font-bold md:text-5xl'>{t.stats?.title || 'Transforming Businesses Worldwide'}</h2>
           <p className='mx-auto max-w-3xl text-xl opacity-90'>
-            Join hundreds of companies already experiencing the power of AI voice agents
+            {t.stats?.subtitle || 'Join thousands of companies already experiencing the power of AI voice agents'}
           </p>
         </div>
 

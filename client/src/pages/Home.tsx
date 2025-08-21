@@ -3,6 +3,7 @@ import Hero from '@/components/Hero'
 import ProblemsSection from '@/components/ProblemsSection'
 import SolutionSection from '@/components/SolutionSection'
 import HowItWorksSection from '@/components/HowItWorksSection'
+import SEOHead from '@/components/SEOHead'
 
 // Lazy load components below the fold for better performance
 const TestimonialsSection = lazy(() => import('@/components/TestimonialsSection'))
@@ -48,6 +49,7 @@ export default function Home() {
 
   return (
     <>
+      <SEOHead page="home" />
       {/* Hero */}
       <Hero />
 
